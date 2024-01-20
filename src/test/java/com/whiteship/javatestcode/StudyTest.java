@@ -18,11 +18,13 @@ import static org.junit.jupiter.api.Assertions.*;
 // under bar remove
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 // 리플랙션 때문에 public 사용 필요 없음.
 class StudyTest {
 
     int value = 1;
-    
+
+    @Order(2)
     @FastTest
     @DisplayName("스터디 만들기 \uD83D\uDE31")
     public void create_new_study() {
@@ -32,12 +34,14 @@ class StudyTest {
     }
 
     @Test
-    @Disabled // test code 사용 안할 때 (테스트 코드이지만 사용 안할 때)
+    //@Disabled // test code 사용 안할 때 (테스트 코드이지만 사용 안할 때)
+    @Order(1)
     @DisplayName("스터디 만들기 🤣")
     void create_new_study_again(){
         System.out.println("create1");
     }
 
+    @Order(3)
     @DisplayName("반복테스트")
     @RepeatedTest(value = 10, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
     void repeatTest(RepetitionInfo repetitionInfo){
@@ -45,6 +49,7 @@ class StudyTest {
         System.out.println("test" + repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
     }
 
+    @Order(4)
     @DisplayName("스터디 만들기")
     @ParameterizedTest(name = "{index} {displayName} message={0}")
     @CsvSource({"10, '자바 스터디'", "20, '스프링'"})
@@ -70,12 +75,12 @@ class StudyTest {
     }
 
     @BeforeAll
-    void beforeAll() {
+    static void beforeAll() {
         System.out.println("before all");
     }
 
     @AfterAll
-    void afterAll() {
+    static void afterAll() {
         System.out.println("after all");
     }
 
