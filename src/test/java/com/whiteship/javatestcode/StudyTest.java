@@ -17,13 +17,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 // under bar remove
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 // 리플랙션 때문에 public 사용 필요 없음.
 class StudyTest {
 
+    int value = 1;
+    
     @FastTest
     @DisplayName("스터디 만들기 \uD83D\uDE31")
     public void create_new_study() {
-        Study actual = new Study(100);
+        System.out.println("value++ = " + value++);
+        Study actual = new Study(1);
         assertThat(actual.getLimit()).isGreaterThan(0);
     }
 
@@ -37,16 +41,12 @@ class StudyTest {
     @DisplayName("반복테스트")
     @RepeatedTest(value = 10, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
     void repeatTest(RepetitionInfo repetitionInfo){
+        System.out.println("value++ = " + value++);
         System.out.println("test" + repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
     }
 
     @DisplayName("스터디 만들기")
     @ParameterizedTest(name = "{index} {displayName} message={0}")
-    //@ValueSource(strings = {"날씨가", "많이", "추워지고", "있어요."})
-    //@ValueSource(ints = {10, 20, 40})
-    //@EmptySource
-    //@NullSource
-    //@NullAndEmptySource
     @CsvSource({"10, '자바 스터디'", "20, '스프링'"})
     void parameterizedTest (@AggregateWith(StudyAggregator.class) Study study){
         System.out.println(study);
@@ -70,12 +70,12 @@ class StudyTest {
     }
 
     @BeforeAll
-    static void beforeAll() {
+    void beforeAll() {
         System.out.println("before all");
     }
 
     @AfterAll
-    static void afterAll() {
+    void afterAll() {
         System.out.println("after all");
     }
 
