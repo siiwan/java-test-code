@@ -16,8 +16,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 // under bar remove
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+// @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 // 리플랙션 때문에 public 사용 필요 없음.
 class StudyTest {
@@ -26,7 +26,7 @@ class StudyTest {
 
     @Order(2)
     @FastTest
-    @DisplayName("스터디 만들기 \uD83D\uDE31")
+    //@DisplayName("스터디 만들기 \uD83D\uDE31")
     public void create_new_study() {
         System.out.println("value++ = " + value++);
         Study actual = new Study(1);
@@ -34,7 +34,7 @@ class StudyTest {
     }
 
     @Test
-    //@Disabled // test code 사용 안할 때 (테스트 코드이지만 사용 안할 때)
+    @Disabled // test code 사용 안할 때 (테스트 코드이지만 사용 안할 때)
     @Order(1)
     @DisplayName("스터디 만들기 🤣")
     void create_new_study_again(){
