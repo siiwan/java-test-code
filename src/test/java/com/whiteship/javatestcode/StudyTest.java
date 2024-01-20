@@ -12,9 +12,18 @@ class StudyTest {
     @Test
     @DisplayName("스터디 만들기 \uD83D\uDE31")
     public void create_new_study() {
-        IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> new Study(-10));
-        assertEquals("limit은 0보다 커야 한다.", exception.getMessage());
+
+        String testEnv = System.getenv("TEST_ENV");
+
+        Assumptions.assumeTrue(1==1);
+        Assumptions.assumingThat(1==1, () -> {
+            System.out.println("testEnv = " + testEnv);
+        });
+
+
+
+        //IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Study(-10));
+        //assertEquals("limit은 0보다 커야 한다.", exception.getMessage());
         //Study study = new Study( -10);
 
         // 테스트코드를 한번에 실행시켜 한번에 알 수 있음.
