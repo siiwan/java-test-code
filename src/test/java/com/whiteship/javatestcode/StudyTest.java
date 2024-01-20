@@ -2,6 +2,7 @@ package com.whiteship.javatestcode;
 
 import org.junit.jupiter.api.*;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 // under bar remove
@@ -9,18 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 // 리플랙션 때문에 public 사용 필요 없음.
 class StudyTest {
 
-    @Test
+    @FastTest
     @DisplayName("스터디 만들기 \uD83D\uDE31")
     public void create_new_study() {
 
-        String testEnv = System.getenv("TEST_ENV");
-
-        Assumptions.assumeTrue(1==1);
-        Assumptions.assumingThat(1==1, () -> {
-            System.out.println("testEnv = " + testEnv);
-        });
-
-
+        Study actual = new Study(100);
+        assertThat(actual.getLimit()).isGreaterThan(0);
 
         //IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Study(-10));
         //assertEquals("limit은 0보다 커야 한다.", exception.getMessage());
